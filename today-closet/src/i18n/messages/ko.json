@@ -172,7 +172,7 @@
   "coupon_code_reject_not_started": "아직 사용 기간이 아닌 쿠폰입니다.",
   "faq_title": "자주 묻는 질문",
   "form_schemas_cash_receipt_invalid": "현금영수증 번호를 확인해 주십시오.",
-  "form_schemas_contact_invalid": "연락처 형식을 확인해 주십시오 (예: 01012345678)",
+  "form_schemas_contact_invalid": "연락처 형식을 확인해 주십시오 (예: 010-1234-5678, 0507-1234-5678)",
   "form_schemas_delivery_memo_too_long": "배송 메모는 100자까지입니다",
   "form_schemas_email_invalid": "이메일 형식을 확인해 주십시오",
   "form_schemas_guest_name_required": "주문자명을 입력해 주십시오",

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "sayren": {
+      "type": "http",
+      "url": "https://mcp.sayren.app/mcp",
+      "headers": {
+        "X-Store-Id": "store_f6c450c63c4f"
+      }
+    }
+  }
+}

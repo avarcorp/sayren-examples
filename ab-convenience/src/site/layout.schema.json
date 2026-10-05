@@ -1,0 +1,1117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "type": "number",
+      "const": 1
+    },
+    "commerce": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "mode": {
+          "default": "shop",
+          "type": "string",
+          "enum": ["shop", "catalog"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "header": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "variant": {
+          "default": "classic",
+          "type": "string",
+          "enum": ["classic", "centered", "minimal"]
+        },
+        "announcement": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            },
+            "to": {
+              "type": "string",
+              "maxLength": 300,
+              "description": "사이트 안 경로. `/`로 시작하고 /products·/cart·/orders·/account 같은 화면이어야 한다"
+            }
+          },
+          "required": ["text"],
+          "additionalProperties": false
+        },
+        "nav": {
+          "default": [
+            {
+              "label": "전체 상품",
+              "to": "/products"
+            }
+          ],
+          "maxItems": 10,
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 20
+                  },
+                  "to": {
+                    "type": "string",
+                    "maxLength": 300,
+                    "description": "사이트 안 경로. `/`로 시작하고 /products·/cart·/orders·/account 같은 화면이어야 한다"
+                  }
+                },
+                "required": ["label", "to"],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 20
+                  },
+                  "category": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 40,
+                    "description": "카테고리 이름"
+                  }
+                },
+                "required": ["label", "category"],
+                "additionalProperties": false
+              }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "footer": {
+      "default": null,
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "variant": {
+              "default": "simple",
+              "type": "string",
+              "enum": ["simple", "columns", "minimal"]
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "links": {
+              "default": [],
+              "maxItems": 12,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 20
+                  },
+                  "to": {
+                    "type": "string",
+                    "maxLength": 300,
+                    "description": "사이트 안 경로. `/`로 시작하고 /products·/cart·/orders·/account 같은 화면이어야 한다"
+                  }
+                },
+                "required": ["label", "to"],
+                "additionalProperties": false
+              }
+            },
+            "social": {
+              "default": [],
+              "maxItems": 6,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": ["instagram", "youtube", "facebook", "x", "blog", "kakao"]
+                  },
+                  "url": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "format": "uri"
+                  }
+                },
+                "required": ["kind", "url"],
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "home": {
+      "default": [],
+      "maxItems": 30,
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,31}$",
+                "description": "섹션 id. 설정 안에서 유일하다. 분석 목록 id(`home:{id}`)로 쓴다"
+              },
+              "type": {
+                "type": "string",
+                "const": "hero"
+              },
+              "variant": {
+                "default": "fullBleed",
+                "type": "string",
+                "enum": ["fullBleed", "split", "carousel", "textOnly"]
+              },
+              "slides": {
+                "minItems": 1,
+                "maxItems": 5,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "image": {
+                      "type": "string",
+                      "maxLength": 2000,
+                      "format": "uri",
+                      "description": "https 이미지 주소"
+                    },
+                    "imageAlt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 80
+                    },
+                    "title": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 60
+                    },
+                    "subtitle": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120
+                    },
+                    "cta": {
+                      "type": "object",
+                      "properties": {
+                        "label": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 20
+                        },
+                        "to": {
+                          "type": "string",
+                          "maxLength": 300,
+                          "description": "사이트 안 경로. `/`로 시작하고 /products·/cart·/orders·/account 같은 화면이어야 한다"
+                        }
+                      },
+                      "required": ["label", "to"],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": ["title"],
+                  "additionalProperties": false
+                }
+              },
+              "autoplay": {
+                "default": false,
+                "type": "boolean"
+              }
+            },
+            "required": ["id", "type", "slides"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,31}$",
+                "description": "섹션 id. 설정 안에서 유일하다. 분석 목록 id(`home:{id}`)로 쓴다"
+              },
+              "type": {
+                "type": "string",
+                "const": "categoryGrid"
+              },
+              "variant": {
+                "default": "chips",
+                "type": "string",
+                "enum": ["tiles", "circles", "chips"]
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+              },
+              "limit": {
+                "description": "보일 카테고리 수. 없으면 전부",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 24
+              },
+              "images": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 40
+                },
+                "additionalProperties": {
+                  "type": "string",
+                  "maxLength": 2000,
+                  "format": "uri",
+                  "description": "https 이미지 주소"
+                }
+              }
+            },
+            "required": ["id", "type"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,31}$",
+                "description": "섹션 id. 설정 안에서 유일하다. 분석 목록 id(`home:{id}`)로 쓴다"
+              },
+              "type": {
+                "type": "string",
+                "const": "productRail"
+              },
+              "variant": {
+                "default": "scroll",
+                "type": "string",
+                "enum": ["scroll", "carousel"]
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+              },
+              "source": {
+                "default": {},
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "sort": {
+                        "default": "recommend",
+                        "type": "string",
+                        "enum": [
+                          "recommend",
+                          "latest",
+                          "priceAsc",
+                          "priceDesc",
+                          "reviewCount",
+                          "ratingDesc"
+                        ]
+                      },
+                      "category": {
+                        "description": "카테고리 이름. 없으면 전체 상품",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 40
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "productIds": {
+                        "minItems": 1,
+                        "maxItems": 24,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 64
+                        }
+                      }
+                    },
+                    "required": ["productIds"],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "collection": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+                        "description": "컬렉션 주소(slug). 상점 플랫폼 상품 › 컬렉션의 주소다. 상품·순서·정렬은 컬렉션 설정을 따르고, 컬렉션이 없거나 숨김·기간 밖이면 섹션을 숨긴다"
+                      }
+                    },
+                    "required": ["collection"],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "limit": {
+                "default": 8,
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 24
+              },
+              "moreLink": {
+                "default": false,
+                "description": "목록 화면의 같은 조건으로 가는 「더 보기」 링크",
+                "type": "boolean"
+              }
+            },
+            "required": ["id", "type"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,31}$",
+                "description": "섹션 id. 설정 안에서 유일하다. 분석 목록 id(`home:{id}`)로 쓴다"
+              },
+              "type": {
+                "type": "string",
+                "const": "productGrid"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+              },
+              "source": {
+                "default": {},
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "sort": {
+                        "default": "recommend",
+                        "type": "string",
+                        "enum": [
+                          "recommend",
+                          "latest",
+                          "priceAsc",
+                          "priceDesc",
+                          "reviewCount",
+                          "ratingDesc"
+                        ]
+                      },
+                      "category": {
+                        "description": "카테고리 이름. 없으면 전체 상품",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 40
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "productIds": {
+                        "minItems": 1,
+                        "maxItems": 24,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 64
+                        }
+                      }
+                    },
+                    "required": ["productIds"],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "collection": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+                        "description": "컬렉션 주소(slug). 상점 플랫폼 상품 › 컬렉션의 주소다. 상품·순서·정렬은 컬렉션 설정을 따르고, 컬렉션이 없거나 숨김·기간 밖이면 섹션을 숨긴다"
+                      }
+                    },
+                    "required": ["collection"],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "limit": {
+                "default": 8,
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 24
+              },
+              "columns": {
+                "default": {},
+                "type": "object",
+                "properties": {
+                  "mobile": {
+                    "default": 2,
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "const": 1
+                      },
+                      {
+                        "type": "number",
+                        "const": 2
+                      }
+                    ]
+                  },
+                  "desktop": {
+                    "default": 4,
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "const": 2
+                      },
+                      {
+                        "type": "number",
+                        "const": 3
+                      },
+                      {
+                        "type": "number",
+                        "const": 4
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              "moreLink": {
+                "default": false,
+                "description": "목록 화면의 같은 조건으로 가는 「더 보기」 링크",
+                "type": "boolean"
+              }
+            },
+            "required": ["id", "type"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,31}$",
+                "description": "섹션 id. 설정 안에서 유일하다. 분석 목록 id(`home:{id}`)로 쓴다"
+              },
+              "type": {
+                "type": "string",
+                "const": "productSpotlight"
+              },
+              "variant": {
+                "default": "imageLeft",
+                "type": "string",
+                "enum": ["imageLeft", "imageRight", "stacked"]
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+              },
+              "source": {
+                "default": {},
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "sort": {
+                        "default": "recommend",
+                        "type": "string",
+                        "enum": [
+                          "recommend",
+                          "latest",
+                          "priceAsc",
+                          "priceDesc",
+                          "reviewCount",
+                          "ratingDesc"
+                        ]
+                      },
+                      "category": {
+                        "description": "카테고리 이름. 없으면 전체 상품",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 40
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "productIds": {
+                        "minItems": 1,
+                        "maxItems": 24,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 64
+                        }
+                      }
+                    },
+                    "required": ["productIds"],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "collection": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+                        "description": "컬렉션 주소(slug). 상점 플랫폼 상품 › 컬렉션의 주소다. 상품·순서·정렬은 컬렉션 설정을 따르고, 컬렉션이 없거나 숨김·기간 밖이면 섹션을 숨긴다"
+                      }
+                    },
+                    "required": ["collection"],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": ["id", "type"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,31}$",
+                "description": "섹션 id. 설정 안에서 유일하다. 분석 목록 id(`home:{id}`)로 쓴다"
+              },
+              "type": {
+                "type": "string",
+                "const": "editorialBanner"
+              },
+              "variant": {
+                "default": "wide",
+                "type": "string",
+                "enum": ["wide", "twoUp", "threeUp"]
+              },
+              "items": {
+                "minItems": 1,
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "image": {
+                      "type": "string",
+                      "maxLength": 2000,
+                      "format": "uri",
+                      "description": "https 이미지 주소"
+                    },
+                    "imageAlt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 80
+                    },
+                    "title": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 60
+                    },
+                    "subtitle": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120
+                    },
+                    "to": {
+                      "type": "string",
+                      "maxLength": 300,
+                      "description": "사이트 안 경로. `/`로 시작하고 /products·/cart·/orders·/account 같은 화면이어야 한다"
+                    }
+                  },
+                  "required": ["image", "title"],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": ["id", "type", "items"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,31}$",
+                "description": "섹션 id. 설정 안에서 유일하다. 분석 목록 id(`home:{id}`)로 쓴다"
+              },
+              "type": {
+                "type": "string",
+                "const": "brandStory"
+              },
+              "variant": {
+                "default": "imageLeft",
+                "type": "string",
+                "enum": ["imageLeft", "imageRight", "textOnly"]
+              },
+              "image": {
+                "type": "string",
+                "maxLength": 2000,
+                "format": "uri",
+                "description": "https 이미지 주소"
+              },
+              "imageAlt": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 60
+              },
+              "paragraphs": {
+                "minItems": 1,
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 600
+                }
+              },
+              "cta": {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 20
+                  },
+                  "to": {
+                    "type": "string",
+                    "maxLength": 300,
+                    "description": "사이트 안 경로. `/`로 시작하고 /products·/cart·/orders·/account 같은 화면이어야 한다"
+                  }
+                },
+                "required": ["label", "to"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["id", "type", "title", "paragraphs"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,31}$",
+                "description": "섹션 id. 설정 안에서 유일하다. 분석 목록 id(`home:{id}`)로 쓴다"
+              },
+              "type": {
+                "type": "string",
+                "const": "reviewHighlights"
+              },
+              "variant": {
+                "default": "cards",
+                "type": "string",
+                "enum": ["cards", "quotes"]
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+              },
+              "source": {
+                "default": {
+                  "sort": "reviewCount"
+                },
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "sort": {
+                        "default": "recommend",
+                        "type": "string",
+                        "enum": [
+                          "recommend",
+                          "latest",
+                          "priceAsc",
+                          "priceDesc",
+                          "reviewCount",
+                          "ratingDesc"
+                        ]
+                      },
+                      "category": {
+                        "description": "카테고리 이름. 없으면 전체 상품",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 40
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "productIds": {
+                        "minItems": 1,
+                        "maxItems": 24,
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 64
+                        }
+                      }
+                    },
+                    "required": ["productIds"],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "collection": {
+                        "type": "string",
+                        "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+                        "description": "컬렉션 주소(slug). 상점 플랫폼 상품 › 컬렉션의 주소다. 상품·순서·정렬은 컬렉션 설정을 따르고, 컬렉션이 없거나 숨김·기간 밖이면 섹션을 숨긴다"
+                      }
+                    },
+                    "required": ["collection"],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "limit": {
+                "default": 6,
+                "type": "integer",
+                "minimum": 3,
+                "maximum": 12
+              }
+            },
+            "required": ["id", "type"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,31}$",
+                "description": "섹션 id. 설정 안에서 유일하다. 분석 목록 id(`home:{id}`)로 쓴다"
+              },
+              "type": {
+                "type": "string",
+                "const": "benefits"
+              },
+              "variant": {
+                "default": "band",
+                "type": "string",
+                "enum": ["band", "grid"]
+              },
+              "items": {
+                "minItems": 1,
+                "maxItems": 4,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 30
+                    },
+                    "description": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 80
+                    }
+                  },
+                  "required": ["title"],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": ["id", "type", "items"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,31}$",
+                "description": "섹션 id. 설정 안에서 유일하다. 분석 목록 id(`home:{id}`)로 쓴다"
+              },
+              "type": {
+                "type": "string",
+                "const": "faq"
+              },
+              "variant": {
+                "default": "accordion",
+                "type": "string",
+                "enum": ["accordion"]
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+              },
+              "items": {
+                "minItems": 1,
+                "maxItems": 20,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "question": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120
+                    },
+                    "answer": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 1000
+                    }
+                  },
+                  "required": ["question", "answer"],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": ["id", "type", "items"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,31}$",
+                "description": "섹션 id. 설정 안에서 유일하다. 분석 목록 id(`home:{id}`)로 쓴다"
+              },
+              "type": {
+                "type": "string",
+                "const": "notice"
+              },
+              "variant": {
+                "default": "band",
+                "type": "string",
+                "enum": ["band", "box"]
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              },
+              "to": {
+                "type": "string",
+                "maxLength": 300,
+                "description": "사이트 안 경로. `/`로 시작하고 /products·/cart·/orders·/account 같은 화면이어야 한다"
+              }
+            },
+            "required": ["id", "type", "text"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,31}$",
+                "description": "섹션 id. 설정 안에서 유일하다. 분석 목록 id(`home:{id}`)로 쓴다"
+              },
+              "type": {
+                "type": "string",
+                "const": "contactCta"
+              },
+              "variant": {
+                "default": "band",
+                "type": "string",
+                "enum": ["band"]
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 60
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              }
+            },
+            "required": ["id", "type"],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,31}$",
+                "description": "섹션 id. 설정 안에서 유일하다. 분석 목록 id(`home:{id}`)로 쓴다"
+              },
+              "type": {
+                "type": "string",
+                "const": "richText"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 60
+              },
+              "paragraphs": {
+                "minItems": 1,
+                "maxItems": 10,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                }
+              }
+            },
+            "required": ["id", "type", "paragraphs"],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "list": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "columns": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "mobile": {
+              "default": 2,
+              "anyOf": [
+                {
+                  "type": "number",
+                  "const": 1
+                },
+                {
+                  "type": "number",
+                  "const": 2
+                }
+              ]
+            },
+            "desktop": {
+              "default": 4,
+              "anyOf": [
+                {
+                  "type": "number",
+                  "const": 2
+                },
+                {
+                  "type": "number",
+                  "const": 3
+                },
+                {
+                  "type": "number",
+                  "const": 4
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "card": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "aspect": {
+              "default": "square",
+              "type": "string",
+              "enum": ["square", "portrait", "landscape"]
+            },
+            "style": {
+              "default": "plain",
+              "type": "string",
+              "enum": ["plain", "bordered", "overlay"]
+            },
+            "showRating": {
+              "default": true,
+              "type": "boolean"
+            },
+            "showPrice": {
+              "default": true,
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "filters": {
+          "default": "top",
+          "type": "string",
+          "enum": ["top", "sidebar", "drawer"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "detail": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "gallery": {
+          "default": "stack",
+          "type": "string",
+          "enum": ["stack", "thumbsLeft", "thumbsBottom", "carousel"]
+        },
+        "buyBox": {
+          "default": "inline",
+          "type": "string",
+          "enum": ["sticky", "inline"]
+        },
+        "mobileBuyBar": {
+          "default": false,
+          "type": "boolean"
+        },
+        "optionStyle": {
+          "default": "select",
+          "type": "string",
+          "enum": ["select", "chips"]
+        },
+        "blocks": {
+          "default": ["description"],
+          "minItems": 1,
+          "maxItems": 4,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["description", "reviews", "fulfillment", "inquiry"]
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["version"],
+  "additionalProperties": false
+}

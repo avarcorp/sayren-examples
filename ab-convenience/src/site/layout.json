@@ -1,0 +1,231 @@
+{
+  "$schema": "./layout.schema.json",
+  "version": 1,
+  "commerce": {
+    "mode": "shop"
+  },
+  "header": {
+    "variant": "classic",
+    "announcement": {
+      "text": "우리 동네 AB편의점 · 직접 배달과 방문 수령으로 받습니다",
+      "to": "/help"
+    },
+    "nav": [
+      {
+        "label": "전체",
+        "to": "/products"
+      },
+      {
+        "label": "간편식",
+        "category": "간편식"
+      },
+      {
+        "label": "음료",
+        "category": "음료"
+      },
+      {
+        "label": "라면",
+        "category": "라면"
+      },
+      {
+        "label": "과자",
+        "category": "과자"
+      }
+    ]
+  },
+  "footer": {
+    "variant": "columns",
+    "text": "필요한 것을 가까이에서, {storeName}입니다.",
+    "links": [
+      {
+        "label": "이용약관",
+        "to": "/terms"
+      },
+      {
+        "label": "개인정보처리방침",
+        "to": "/privacy"
+      },
+      {
+        "label": "고객센터",
+        "to": "/help"
+      },
+      {
+        "label": "1:1 문의",
+        "to": "/account/support"
+      },
+      {
+        "label": "내 상품 문의",
+        "to": "/account/inquiries"
+      }
+    ],
+    "social": [
+      {
+        "kind": "instagram",
+        "url": "https://www.instagram.com/"
+      }
+    ]
+  },
+  "home": [
+    {
+      "id": "main-banner",
+      "type": "hero",
+      "variant": "carousel",
+      "autoplay": true,
+      "slides": [
+        {
+          "image": "https://images.unsplash.com/photo-1534723452862-4c874018d66d?w=1600&h=900&fit=crop&q=80",
+          "imageAlt": "편의점 진열대",
+          "title": "필요한 것, 지금 바로",
+          "subtitle": "간편식부터 음료·과자까지 가까운 AB편의점에서 받으십시오",
+          "cta": {
+            "label": "전체 상품 보기",
+            "to": "/products"
+          }
+        },
+        {
+          "image": "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=1600&h=900&fit=crop&q=80",
+          "imageAlt": "따뜻한 도시락 반찬",
+          "title": "든든한 한 끼 간편식",
+          "subtitle": "도시락·삼각김밥을 주문하면 가게가 바로 준비합니다",
+          "cta": {
+            "label": "간편식 보기",
+            "to": "/products?categoryId=cat_b3e24da2d091"
+          }
+        },
+        {
+          "image": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=1600&h=900&fit=crop&q=80",
+          "imageAlt": "달걀을 올린 라면",
+          "title": "출출할 땐 라면",
+          "subtitle": "컵라면을 음료와 함께 주문하십시오",
+          "cta": {
+            "label": "라면 보기",
+            "to": "/products?categoryId=cat_b92cf62ef15e"
+          }
+        }
+      ]
+    },
+    {
+      "id": "benefits",
+      "type": "benefits",
+      "variant": "band",
+      "items": [
+        {
+          "title": "직접 배달",
+          "description": "가게가 주문을 확인하고 준비해 배달합니다"
+        },
+        {
+          "title": "방문 수령",
+          "description": "준비되면 매장에서 바로 받습니다"
+        },
+        {
+          "title": "접수 전 취소",
+          "description": "가게가 접수하기 전에는 바로 취소됩니다"
+        }
+      ]
+    },
+    {
+      "id": "categories",
+      "type": "categoryGrid",
+      "variant": "circles",
+      "title": "카테고리",
+      "images": {
+        "간편식": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400&h=400&fit=crop&q=80",
+        "음료": "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&h=400&fit=crop&q=80",
+        "라면": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=400&fit=crop&q=80",
+        "과자": "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=400&h=400&fit=crop&q=80"
+      }
+    },
+    {
+      "id": "new-arrivals",
+      "type": "productRail",
+      "variant": "scroll",
+      "title": "새로 들어온 상품",
+      "source": {
+        "sort": "latest"
+      },
+      "limit": 12,
+      "moreLink": true
+    },
+    {
+      "id": "best",
+      "type": "productGrid",
+      "title": "많이 찾는 상품",
+      "source": {
+        "sort": "recommend"
+      },
+      "limit": 8,
+      "columns": {
+        "mobile": 2,
+        "desktop": 4
+      },
+      "moreLink": true
+    },
+    {
+      "id": "meals",
+      "type": "productRail",
+      "variant": "scroll",
+      "title": "간편식",
+      "source": {
+        "sort": "latest",
+        "category": "간편식"
+      },
+      "limit": 8,
+      "moreLink": true
+    },
+    {
+      "id": "drinks",
+      "type": "productRail",
+      "variant": "scroll",
+      "title": "음료",
+      "source": {
+        "sort": "latest",
+        "category": "음료"
+      },
+      "limit": 8,
+      "moreLink": true
+    },
+    {
+      "id": "faq",
+      "type": "faq",
+      "title": "자주 묻는 질문",
+      "items": [
+        {
+          "question": "어떻게 받습니까?",
+          "answer": "주문서에서 직접 배달 또는 방문 수령을 고르십시오. 가게가 주문을 접수하면 바로 준비합니다."
+        },
+        {
+          "question": "주문을 취소할 수 있습니까?",
+          "answer": "가게가 접수하기 전에는 주문 상세에서 바로 취소하실 수 있습니다. 접수 뒤에는 가게에 문의해 주십시오."
+        },
+        {
+          "question": "가게가 주문을 확인하지 않으면 어떻게 됩니까?",
+          "answer": "정해진 시간 안에 가게가 접수하지 않으면 주문이 자동으로 취소되고 결제한 금액은 환불됩니다."
+        },
+        {
+          "question": "비회원도 주문할 수 있습니까?",
+          "answer": "네, 비회원으로 주문하실 수 있습니다. 주문 시 입력한 연락처와 주문 조회 비밀번호로 비회원 주문 조회에서 주문을 확인하실 수 있습니다."
+        }
+      ]
+    }
+  ],
+  "list": {
+    "columns": {
+      "mobile": 2,
+      "desktop": 4
+    },
+    "card": {
+      "aspect": "square",
+      "style": "bordered",
+      "showRating": true,
+      "showPrice": true
+    },
+    "filters": "top"
+  },
+  "detail": {
+    "gallery": "thumbsBottom",
+    "buyBox": "sticky",
+    "mobileBuyBar": true,
+    "optionStyle": "chips",
+    "blocks": ["description", "fulfillment", "reviews", "inquiry"]
+  }
+}

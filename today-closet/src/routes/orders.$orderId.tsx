@@ -262,9 +262,11 @@ function OrderDetail() {
     >
       {result ? (
         <div role="status" className="flex flex-col gap-1 bg-chip p-4 text-body md:p-5">
-          <p className="font-bold">{result.approved
+          <p className="font-bold">
+            {result.approved
               ? m.order_claim_canceled({ quantity: result.quantity })
-              : m.order_claim_received({ quantity: result.quantity })}</p>
+              : m.order_claim_received({ quantity: result.quantity })}
+          </p>
           {/* 상품 금액 환불은 수량 비율이고, 반품 배송비는 이미 빠져 있다. 배송비 환불은 따로 온다 */}
           {result.expectedRefundAmount === null ? null : (
             <p className="text-sub">
@@ -280,9 +282,11 @@ function OrderDetail() {
           )}
           {result.pointRefundAmount > 0 ? (
             <p className="text-muted">
-              {(result.approved ? m.order_claim_point_refund : m.order_claim_expected_point_refund)({
-                amount: formatPrice(result.pointRefundAmount),
-              })}
+              {(result.approved ? m.order_claim_point_refund : m.order_claim_expected_point_refund)(
+                {
+                  amount: formatPrice(result.pointRefundAmount),
+                },
+              )}
             </p>
           ) : null}
           {result.deliveryFeeRefundAmount > 0 ? (
