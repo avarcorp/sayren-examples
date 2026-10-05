@@ -1,0 +1,9 @@
+# 상위 모노레포(shop.24)의 pnpm이 example/ 안 프로젝트를 자기 워크스페이스로 잡지 않게 끊는 경계다.
+# example/의 각 프로젝트는 독립 프로젝트다 — 잠금 파일·node_modules를 자기 폴더에 두고, 그 폴더의 것만 설치한다.
+packages:
+  - "**"
+  - "!**/node_modules/**"
+  - "!**/dist/**"
+sharedWorkspaceLockfile: false
+recursiveInstall: false
+linkWorkspacePackages: false

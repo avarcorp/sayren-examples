@@ -1,0 +1,39 @@
+/*
+ * 확장 지점 — 브랜드 색과 서체, 본문 폭은 여기서 바꾼다. 화면 코드는 토큰만 쓰므로
+ * 이 블록만 고쳐도 전체 톤이 바뀐다.
+ *
+ * - page: 페이지 바탕 · ink: 본문 글자·주요 버튼·판매가 · sub: 보조 본문 · muted: 캡션·정가
+ * - line: 구분선 · line-strong: 입력·보조 버튼 테두리 · chip: 옅은 면(모바일 섹션 띠·선택 행)
+ * - point: 할인율·필수 표시·오류 · point-soft: 혜택 배지 면 · info: 배송중 상태
+ * - container-page: 헤더와 본문의 최대 폭(`max-w-page`)
+ * - 글자 단차: caption 12 · meta 13 · body 14 · body-lg 15 (Tailwind 기본 xs·sm·base·lg·xl·2xl와 함께 쓴다)
+ *
+ * 오늘의옷장 — 흰 바탕·잉크 글자, 할인율에만 레드를 쓰는 국내 패션몰 톤. 모서리 0
+ * 디자인 원본: 「오늘의옷장 스토어프론트 리디자인」 캔버스(Atoms·Molecules)
+ */
+@theme {
+  --color-page: #ffffff;
+  --color-ink: #111111;
+  --color-sub: #555555;
+  --color-muted: #767676;
+  --color-line: #e5e5e5;
+  --color-line-strong: #d4d4d4;
+  --color-chip: #f5f5f5;
+  --color-point: #e8380d;
+  --color-point-soft: #fdf0eb;
+  --color-info: #2563eb;
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", sans-serif;
+  --color-surface: #f7f6f3;
+  --font-display: var(--font-sans);
+  --radius-card: 0;
+  --radius-control: 0;
+  --container-page: 80rem;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.5;
+  --text-meta: 0.8125rem;
+  --text-meta--line-height: 1.5;
+  --text-body: 0.875rem;
+  --text-body--line-height: 1.6;
+  --text-body-lg: 0.9375rem;
+  --text-body-lg--line-height: 1.6;
+}
