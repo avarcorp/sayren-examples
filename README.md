@@ -8,6 +8,7 @@
 | 폴더 | 예제 | 기반 |
 |---|---|---|
 | [`today-closet/`](today-closet/) | 오늘의옷장. 여성 의류 쇼핑몰 | 스토어프론트 템플릿 `basic` 0.2.15 |
+| [`sayren-apps/order-mail`](https://github.com/avarcorp/sayren-apps/tree/main/order-mail) | 주문 메일 알림. 결제된 주문을 Resend로 알리는 서드파티 앱(별도 저장소 `avarcorp/sayren-apps`) | `@sayren/app` 0.8 · `sayren app` CLI |
 
 ## 오늘의옷장 (`today-closet/`)
 
