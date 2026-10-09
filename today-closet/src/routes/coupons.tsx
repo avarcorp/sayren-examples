@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
-import { type ReactNode, useState } from "react";
+import type { ReactNode } from "react";
 import { z } from "zod";
 import { couponBenefitText } from "../components/coupon-benefit";
 import { CouponDownloadList } from "../components/coupon-download-list";
@@ -13,7 +13,6 @@ import { getDownloadableCoupons } from "../lib/coupon-download";
 import { formatDateTime, formatPrice } from "../lib/format";
 import { getMyCoupons, MY_COUPON_STATUSES, type MyCouponStatus } from "../lib/my-coupons";
 import { pageTitle } from "../lib/page-title";
-import { COUPON_PROMOTIONS } from "../site/promotions";
 
 const couponsSearch = z.object({
   /** 보유 쿠폰 거르기 — 없으면 사용 가능 */
@@ -53,9 +52,7 @@ function Coupons() {
     <>
       {/* 비회원은 진행 중인 쿠폰 안내가 먼저다 */}
       <DownloadCoupons />
-      {loggedIn ? null : <EventCoupons />}
       <MyCoupons />
-      {loggedIn ? <EventCoupons /> : null}
       <section aria-labelledby="coupons-how" className="flex min-w-0 flex-col gap-4">
         <SectionHeader id="coupons-how" title={m.coupons_how_title()} rule />
         <ol className="flex list-decimal flex-col gap-1.5 pl-5 text-body text-sub">
@@ -163,55 +160,6 @@ function MyCoupons() {
         </nav>
       ) : null}
       {content}
-    </section>
-  );
-}
-
-/** 진행 중인 코드 쿠폰 — 상점 안내 콘텐츠(`site/promotions.ts`). 코드는 주문서의 쿠폰 칸에 입력한다 */
-function EventCoupons() {
-  const [copied, setCopied] = useState<string | null>(null);
-  return (
-    <section aria-labelledby="coupons-event" className="flex min-w-0 flex-col gap-4">
-      <SectionHeader id="coupons-event" title={m.coupons_event_title()} rule />
-      <p className="text-meta text-sub">{m.coupons_event_note()}</p>
-      <ul className="grid min-w-0 gap-3 md:grid-cols-2">
-        {COUPON_PROMOTIONS.map((coupon) => (
-          <li key={coupon.code} className="min-w-0">
-            <CouponTicket
-              benefit={coupon.benefit}
-              name={coupon.name}
-              conditions={
-                <>
-                  {coupon.condition} · {coupon.period}
-                  <span className="mt-1 block text-ink">
-                    {m.coupons_code_label()}{" "}
-                    <strong className="break-all font-mono">{coupon.code}</strong>
-                  </span>
-                </>
-              }
-              stub={
-                <button
-                  type="button"
-                  onClick={() => {
-                    void navigator.clipboard
-                      .writeText(coupon.code)
-                      .then(() => setCopied(coupon.code))
-                      .catch(() => setCopied(null));
-                  }}
-                  className={buttonClass({ variant: "subtle", size: "xs" })}
-                >
-                  {m.coupons_copy()}
-                </button>
-              }
-            />
-          </li>
-        ))}
-      </ul>
-      {copied ? (
-        <p role="status" className="text-body">
-          {m.coupons_copied()}
-        </p>
-      ) : null}
     </section>
   );
 }

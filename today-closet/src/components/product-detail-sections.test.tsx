@@ -70,19 +70,24 @@ const inquiry = (over: Partial<PublicInquiry>): PublicInquiry => ({
 });
 
 describe("판매자 정보 헬퍼", () => {
-  it("상점 정보 API 값이 먼저이고, 빈 항목만 예시 값으로 채운다", () => {
-    expect(sellerInfoOf(null).companyName).toBe("오늘의옷장");
+  it("상점 정보 API 값만 쓰고, 빈 항목은 다른 상점의 예시 값이 아니라 「추후 안내」다", () => {
+    expect(sellerInfoOf(null).companyName).toBe("추후 안내");
     const fromApi = sellerInfoOf({
+      name: "산들농원",
       customerCenterPhone: "02-000-0000",
       businessNumber: "1234567890",
       representativeName: "박대표",
       businessName: " ",
+      businessAddress: "서울특별시 강남구 테헤란로 123",
     });
     expect(fromApi.phone).toBe("02-000-0000");
     expect(fromApi.businessNumber).toBe("123-45-67890");
     expect(fromApi.ceo).toBe("박대표");
-    expect(fromApi.companyName).toBe("오늘의옷장");
-    expect(fromApi.mailOrderNumber).toBe(sellerInfoOf(null).mailOrderNumber);
+    // 상호가 비면 상점 이름
+    expect(fromApi.companyName).toBe("산들농원");
+    expect(fromApi.mailOrderNumber).toBe("추후 안내");
+    // 반품지 API가 없어 사업장 주소를 쓴다
+    expect(fromApi.returnAddress).toBe("서울특별시 강남구 테헤란로 123");
   });
 });
 
@@ -201,7 +206,7 @@ describe("상세 섹션 마크업", () => {
     const html = await render(
       <SellerSection
         product={product}
-        seller={sellerInfoOf(null)}
+        seller={sellerInfoOf({ name: "오늘의옷장", businessNumber: "1234567890" })}
         storeName="오늘의옷장"
         onContact={() => {}}
       />,

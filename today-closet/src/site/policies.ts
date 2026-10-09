@@ -1,4 +1,4 @@
-import { BUSINESS_INFO } from "./business";
+import type { SellerInfo } from "./seller";
 
 /**
  * 이용약관·개인정보처리방침·고객센터 문서 — 화면(`/terms`·`/privacy`·`/help`)이 그대로 그린다.
@@ -10,10 +10,16 @@ export interface PolicyDocument {
   sections: { heading: string; paragraphs: string[] }[];
 }
 
-const B = BUSINESS_INFO;
+/** 화면 제목 — 문서를 만들기 전(head)에도 쓴다 */
+export const POLICY_TITLES = {
+  terms: "이용약관",
+  privacy: "개인정보처리방침",
+  help: "고객센터",
+} as const;
 
-export const TERMS: PolicyDocument = {
-  title: "이용약관",
+/** 사업자 이름·연락처는 상점 정보(`GET /store`)에서 온다 */
+export const termsOf = (B: SellerInfo): PolicyDocument => ({
+  title: POLICY_TITLES.terms,
   updatedAt: "2026년 10월 1일",
   sections: [
     {
@@ -64,10 +70,10 @@ export const TERMS: PolicyDocument = {
       ],
     },
   ],
-};
+});
 
-export const PRIVACY: PolicyDocument = {
-  title: "개인정보처리방침",
+export const privacyOf = (B: SellerInfo): PolicyDocument => ({
+  title: POLICY_TITLES.privacy,
   updatedAt: "2026년 10월 1일",
   sections: [
     {
@@ -107,10 +113,10 @@ export const PRIVACY: PolicyDocument = {
       paragraphs: [`책임자 ${B.privacyOfficer} · 연락처 ${B.phone} · 이메일 ${B.email}`],
     },
   ],
-};
+});
 
-export const HELP: PolicyDocument = {
-  title: "고객센터",
+export const helpOf = (B: SellerInfo): PolicyDocument => ({
+  title: POLICY_TITLES.help,
   updatedAt: "2026년 10월 1일",
   sections: [
     {
@@ -132,7 +138,7 @@ export const HELP: PolicyDocument = {
         "상품 수령 후 7일 이내에 주문 상세에서 반품을 신청하실 수 있습니다. 교환은 고객센터로 접수해 주십시오.",
         "단순 변심 반품 배송비 3,000원, 교환 배송비 6,000원입니다. 불량·오배송은 무료로 처리합니다.",
         "착용·세탁·향수 사용·택 제거 후에는 교환·반품이 어렵습니다.",
-        `반품 주소: ${B.address} (${B.companyName} 반품 담당)`,
+        `반품 주소: ${B.returnAddress} (${B.companyName} 반품 담당)`,
       ],
     },
     {
@@ -142,4 +148,4 @@ export const HELP: PolicyDocument = {
       ],
     },
   ],
-};
+});
