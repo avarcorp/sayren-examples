@@ -1,8 +1,8 @@
 # sayren examples
 
-이 저장소는 [sayren.app](https://sayren.app)에서 만든 예제 저장소 모음입니다.
+이 저장소는 [sayren.io](https://sayren.io)에서 만든 예제 저장소 모음입니다.
 
-예제는 모두 sayren 운영 환경에서 만들었습니다. 게시된 `@sayren/storefront-sdk`와 운영 API(`api.sayren.app`)만 쓰고,
+예제는 모두 sayren 운영 환경에서 만들었습니다. 게시된 `@sayren/storefront-sdk`와 운영 API(`api.sayren.io`)만 쓰고,
 상점 데이터는 sayren MCP로, 사이트 소스는 `sayren` CLI로 다뤘습니다. 템플릿을 받아 실제 쇼핑몰 수준까지 확장하는 과정을 그대로 남겼습니다.
 
 | 폴더 | 예제 | 기반 |
@@ -55,7 +55,7 @@ pnpm dev
 개발 서버는 `http://localhost:4010`에서 뜹니다. 실행에는 `.env`가 필요합니다.
 
 ```bash
-SAYREN_API_URL=https://api.sayren.app/storefront/v1
+SAYREN_API_URL=https://api.sayren.io/storefront/v1
 SAYREN_STORE_CODE=내_상점_코드
 ```
 

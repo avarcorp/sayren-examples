@@ -25,7 +25,7 @@ pnpm·yarn을 써도 됩니다(`pnpm install`·`pnpm dev`). 개발 서버는 `ht
 셸에서 준 값이 `.env`보다 우선합니다.
 
 ```bash
-SAYREN_API_URL=https://api.sayren.app/storefront/v1
+SAYREN_API_URL=https://api.sayren.io/storefront/v1
 SAYREN_STORE_CODE=내_상점_코드
 ```
 
@@ -37,7 +37,7 @@ SAYREN_STORE_CODE=내_상점_코드
 
 `.env`는 커밋하지 않습니다(`.gitignore`에 있습니다). 액세스 토큰은 `.env`에 두지 않습니다.
 
-토큰을 주고 받았다면 프로젝트 루트에 `.mcp.json`이 있습니다. sayren 원격 MCP(`https://mcp.sayren.app/mcp`) 주소와 상점 id만 든
+토큰을 주고 받았다면 프로젝트 루트에 `.mcp.json`이 있습니다. sayren 원격 MCP(`https://mcp.sayren.io/mcp`) 주소와 상점 id만 든
 연결 설정이고 토큰은 들어 있지 않습니다. 이 폴더에서 연 AI 에이전트(Claude Code 등)가 처음 연결할 때 Sayren 계정으로 로그인하고
 sayren 도구를 씁니다.
 
