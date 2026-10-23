@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "skills": {
+    "sayren": {
+      "source": "sayren.io",
+      "sourceUrl": "https://sayren.io",
+      "sourceType": "well-known",
+      "computedHash": "7bf56f308363041136ab61724f1a44b2d639994aa1ba0d340eb722dc84915f8d",
+      "wellKnownDigest": "sha256:12201275b2843884ac8f8be1eeca6d7fd5f54982608aec52e774534d1812404a"
+    }
+  }
+}
