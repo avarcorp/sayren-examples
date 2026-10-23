@@ -151,7 +151,10 @@ export function PaymentMethods({ state }: { state: CheckoutState }) {
   );
 }
 
-/** 간편결제 옵션을 결제사로 묶는다 — 결제사 하나가 PG 여럿으로 올 수 있다. 처음 나온 순서를 지킨다 */
+/**
+ * 간편결제 옵션을 결제사로 묶는다 — 결제사 하나가 PG 여럿으로 올 수 있다. 처음 나온 순서를 지킨다.
+ * 결제사를 직접 연결했으면(PG가 결제사 자신) 그 옵션만 남겨 PG를 고르지 않고 바로 결제한다
+ */
 function easyPayProviders(options: AvailablePaymentOption[]) {
   const groups: { provider: string; options: AvailablePaymentOption[] }[] = [];
   for (const o of options) {
@@ -160,7 +163,10 @@ function easyPayProviders(options: AvailablePaymentOption[]) {
     if (group) group.options.push(o);
     else groups.push({ provider: o.provider, options: [o] });
   }
-  return groups;
+  return groups.map((g) => {
+    const direct = g.options.filter((o) => o.pg === g.provider.toLowerCase());
+    return direct.length > 0 ? { ...g, options: direct } : g;
+  });
 }
 
 /** 같은 결제수단의 PG 고르기 — 고른 행 아래에 PG 이름 라디오. 쓸 수 없는 PG는 막는다 */
