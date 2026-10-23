@@ -1,0 +1,24 @@
+/* 클래스는 src/만 훑는다 */
+@import "tailwindcss" source(".");
+/* 상세설명이 에디터가 내보낸 HTML이라 그 모양 규칙(사진 줄·재생기 틀·구분선)이 필요하다 */
+@import "@avarlabs/editor/styles/reader.css";
+@import "./theme.css";
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: var(--color-page);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    font-variant-numeric: tabular-nums;
+    /* 한글을 글자 중간이 아니라 어절에서 줄바꿈한다 */
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}

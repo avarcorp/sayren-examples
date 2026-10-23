@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.output/
+.tanstack/
+.nitro/
+.wrangler/
+.env
+.env.*
+!.env.example
+.mcp.json
+.sayren/
+ref/
+PROGRESS.md
+GAPS.md
