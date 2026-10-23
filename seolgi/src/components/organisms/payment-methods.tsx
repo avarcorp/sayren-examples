@@ -15,6 +15,7 @@ const LOGOS: Record<string, string> = {
   PAYCO: "/pay/payco.svg",
 };
 const OTHERS = ["BANK_TRANSFER", "VIRTUAL_ACCOUNT", "MOBILE"] as const;
+const CARD_PG = "portone";
 
 /**
  * 결제수단 (시안 DCheckout) — 신용·체크카드 행(설명 두 줄), 간편결제 행(결제사 로고 타일), 나머지 행.
@@ -29,7 +30,10 @@ export function PaymentMethods({ state }: { state: CheckoutState }) {
     const first = list.find(usable);
     if (first) select(paymentOptionKey(first));
   };
-  const cards = ofMethod("CARD");
+  // 카드는 포트원으로 바로 결제한다 — 포트원이 없을 때만 다른 PG를 고른다
+  const allCards = ofMethod("CARD");
+  const portoneCards = allCards.filter((o) => o.pg === CARD_PG);
+  const cards = portoneCards.length > 0 ? portoneCards : allCards;
   const easy = easyPayProviders(options);
   const easySelected = selected?.method === "EASY_PAY" ? selected : null;
   const easyGroup = easySelected
@@ -151,7 +155,10 @@ export function PaymentMethods({ state }: { state: CheckoutState }) {
   );
 }
 
-/** 간편결제 옵션을 결제사로 묶는다 — 결제사 하나가 PG 여럿으로 올 수 있다. 처음 나온 순서를 지킨다 */
+/**
+ * 간편결제 옵션을 결제사로 묶는다 — 결제사 하나가 PG 여럿으로 올 수 있다. 처음 나온 순서를 지킨다.
+ * 결제사를 직접 연결했으면(PG가 결제사 자신) 그 옵션만 남겨 PG를 고르지 않고 바로 결제한다
+ */
 function easyPayProviders(options: AvailablePaymentOption[]) {
   const groups: { provider: string; options: AvailablePaymentOption[] }[] = [];
   for (const o of options) {
@@ -160,7 +167,10 @@ function easyPayProviders(options: AvailablePaymentOption[]) {
     if (group) group.options.push(o);
     else groups.push({ provider: o.provider, options: [o] });
   }
-  return groups;
+  return groups.map((g) => {
+    const direct = g.options.filter((o) => o.pg === g.provider.toLowerCase());
+    return direct.length > 0 ? { ...g, options: direct } : g;
+  });
 }
 
 /** 같은 결제수단의 PG 고르기 — 고른 행 아래에 PG 이름 라디오. 쓸 수 없는 PG는 막는다 */
