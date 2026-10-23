@@ -15,6 +15,7 @@ const LOGOS: Record<string, string> = {
   PAYCO: "/pay/payco.svg",
 };
 const OTHERS = ["BANK_TRANSFER", "VIRTUAL_ACCOUNT", "MOBILE"] as const;
+const CARD_PG = "portone";
 
 /**
  * 결제수단 (시안 DCheckout) — 신용·체크카드 행(설명 두 줄), 간편결제 행(결제사 로고 타일), 나머지 행.
@@ -29,7 +30,10 @@ export function PaymentMethods({ state }: { state: CheckoutState }) {
     const first = list.find(usable);
     if (first) select(paymentOptionKey(first));
   };
-  const cards = ofMethod("CARD");
+  // 카드는 포트원으로 바로 결제한다 — 포트원이 없을 때만 다른 PG를 고른다
+  const allCards = ofMethod("CARD");
+  const portoneCards = allCards.filter((o) => o.pg === CARD_PG);
+  const cards = portoneCards.length > 0 ? portoneCards : allCards;
   const easy = easyPayProviders(options);
   const easySelected = selected?.method === "EASY_PAY" ? selected : null;
   const easyGroup = easySelected
