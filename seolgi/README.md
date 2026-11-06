@@ -51,3 +51,5 @@ pnpm exec biome check .
 pnpm test
 pnpm build
 ```
+
+<!-- sayren 배포 필터 운영 확인(#424): 루트 안 변경 -->
