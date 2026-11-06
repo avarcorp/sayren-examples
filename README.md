@@ -100,3 +100,5 @@ npx sayren deploy
 
 예제의 `biome.json`은 `root: false`인 독립 설정입니다. 루트 설정을 `extends`하지 않으므로 예제 폴더만 꺼내거나 `sayren deploy`로 올려도
 자기 설정으로 동작합니다. 새 예제를 추가하면 그 `biome.json`의 `root`를 `false`로 바꿉니다.
+
+<!-- sayren 배포 필터 운영 확인(#424): 루트 밖 변경 -->
