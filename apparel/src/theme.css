@@ -1,0 +1,39 @@
+/*
+ * 데일리 베이직 테마 — docs/04-design-system.md가 원천이다. 화면 코드는 토큰만 쓴다.
+ *
+ * - page: 모든 바탕(흰색). chip·surface도 흰색으로 고정해 옅은 면이 생기지 않게 한다(바탕색 금지)
+ * - ink: 본문·판매가·로고 · sub: 보조 본문 · muted: 캡션·정가 취소선
+ * - line: 구분선·사진 자리 테두리 · line-strong: 입력·보조 버튼 테두리
+ * - point: 주요 버튼 면·링크·선택 테두리 (네이비) · point-ink: 주요 버튼 위 글자
+ * - sale: 할인율·오류·필수 표시
+ * - 서체: Pretendard 하나. --font-display는 --font-sans와 같다
+ * - 모서리 0(미니멀)
+ */
+@theme {
+  --color-page: #ffffff;
+  --color-ink: #111111;
+  --color-sub: #555555;
+  --color-muted: #767676;
+  --color-line: #e5e5e5;
+  --color-line-strong: #c9c9c9;
+  --color-chip: #ffffff;
+  --color-surface: #ffffff;
+  --color-point: #1f2a44;
+  --color-point-ink: #ffffff;
+  --color-point-soft: #ffffff;
+  --color-sale: #b42318;
+  --color-info: #1f2a44;
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", sans-serif;
+  --font-display: var(--font-sans);
+  --radius-card: 0;
+  --radius-control: 0;
+  --container-page: 80rem;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.5;
+  --text-meta: 0.8125rem;
+  --text-meta--line-height: 1.5;
+  --text-body: 0.875rem;
+  --text-body--line-height: 1.6;
+  --text-body-lg: 0.9375rem;
+  --text-body-lg--line-height: 1.6;
+}

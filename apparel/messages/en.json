@@ -1,0 +1,9 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "format_price": "{amount}",
+  "home_no_products": "No products yet.",
+  "root_error_title": "Couldn't load this page",
+  "root_go_home": "Go to home",
+  "root_not_found_title": "Page not found",
+  "site_store_fallback": "Store"
+}
