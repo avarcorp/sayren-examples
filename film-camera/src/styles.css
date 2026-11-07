@@ -1,0 +1,112 @@
+/* 클래스는 src/만 훑는다 — 빌드 산출물(dist)·설치물을 훑으면 빌드마다 CSS가 달라지고 서버·브라우저 빌드의 파일 이름이 어긋난다 */
+@import "tailwindcss" source(".");
+/* 상세설명이 에디터가 내보낸 HTML이라 그 모양 규칙이 필요하다 — 사진 줄, 재생기 틀,
+   구분선. 활자는 product-description.tsx가 정하고 이 파일은 건드리지 않는다. */
+@import "@avarlabs/editor/styles/reader.css";
+
+/*
+ * 확장 지점 — 브랜드 색·서체·폭은 theme.css의 `@theme`에서 바꾼다. 화면 코드는 토큰만 쓰므로
+ * 그 파일만 고쳐도 전체 톤이 바뀐다.
+ */
+@import "./theme.css";
+
+html {
+  font-family: var(--font-sans);
+  word-break: keep-all;
+}
+
+body {
+  /* 모바일 가로 스크롤 방지 — 화면 밖으로 밀린 요소가 있어도 페이지 전체가 옆으로 밀리지 않는다.
+     원인은 각 화면에서 min-w-0·break-words로 고친다. 이 규칙은 마지막 안전망이다 */
+  overflow-x: clip;
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 숫자(가격·수량·날짜)는 자릿수가 흔들리지 않게 한다 */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * 상품 상세설명·안내 섹션 HTML(서버가 정화한 HTML) — 활자와 점검 기록표 모양(docs/04 InspectionTable).
+ * 표는 위아래 잉크 1px, 행 사이 가는 선, 1열 굵게. 좁은 화면에서 넘치면 표만 옆으로 민다.
+ */
+.rich-text {
+  font-size: var(--text-body-lg);
+  line-height: 1.75;
+  color: var(--color-ink);
+  overflow-wrap: anywhere;
+}
+.rich-text > * + * {
+  margin-top: 1rem;
+}
+.rich-text h2,
+.rich-text h3 {
+  margin-top: 2rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.rich-text h2:first-child,
+.rich-text h3:first-child {
+  margin-top: 0;
+}
+.rich-text img {
+  max-width: 100%;
+  height: auto;
+}
+.rich-text a {
+  color: var(--color-point-strong);
+  text-decoration: underline;
+}
+.rich-text ul,
+.rich-text ol {
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.rich-text table {
+  width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  border-top: 1px solid var(--color-ink);
+  border-bottom: 1px solid var(--color-ink);
+  font-size: var(--text-body);
+}
+.rich-text th,
+.rich-text td {
+  padding: 0.75rem 0.75rem 0.75rem 0;
+  border-bottom: 1px solid var(--color-line);
+  text-align: left;
+  vertical-align: top;
+  min-width: 5.5rem;
+}
+.rich-text thead th {
+  font-size: var(--text-meta);
+  font-weight: 600;
+  color: var(--color-sub);
+}
+.rich-text tbody tr:last-child td {
+  border-bottom: 0;
+}
+.rich-text tbody td:first-child {
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* 점검 기록표의 항목 앞 표시 — 로고와 같은 「테두리 정사각형 + 점」(docs/04 CheckMark) */
+.rich-text tbody td:first-child::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 8px;
+  vertical-align: -1px;
+  border: 1.5px solid var(--color-point);
+  background: linear-gradient(var(--color-point), var(--color-point)) center / 4px 4px no-repeat;
+}
+
+/* 키보드 포커스 — 모든 요소가 대표 색 링을 쓴다(브라우저 기본 파란 링 대신) */
+:focus-visible {
+  outline: 2px solid var(--color-point);
+  outline-offset: 2px;
+}
