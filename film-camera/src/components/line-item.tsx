@@ -35,10 +35,10 @@ export function LineItem({
           <img
             src={thumbnailUrl}
             alt=""
-            className="aspect-[4/5] w-full border border-line object-cover"
+            className="aspect-[4/3] w-full border border-line object-cover"
           />
         ) : (
-          <div className="flex aspect-[4/5] w-full items-center justify-center border border-line p-1 text-center font-bold text-caption leading-tight">
+          <div className="flex aspect-[4/3] w-full items-center justify-center border border-line p-1 text-center font-bold text-caption leading-tight">
             {parseCameraName(name).model}
           </div>
         )}

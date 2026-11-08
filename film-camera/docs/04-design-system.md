@@ -7,7 +7,9 @@
 - 기억에 남는 요소 하나: **점검 기록표**. 정비 기록지처럼 가는 선으로 나눈 표에 항목·결과를 적고, 통과 항목 앞에 로고와 같은 「테두리 정사각형 + 점」 표시를 둔다. 상세의 점검표와 구매 상자의 「점검 완료」 줄이 이 모양이다.
 - 나머지는 조용하게 둔다. 바탕은 흰색 하나, 장식 그림자·그라데이션·둥근 카드·입장 애니메이션 없음. 구분은 1px 선으로만 한다.
 - 정렬축은 왼쪽. 간격 단위 4px(4·8·12·16·24·32·48·64).
-- 사진이 없는 상품은 얇은 테두리 칸 가운데 작은 카메라 기호(muted)만 둔다. 이름을 사진 자리에 크게 쓰지 않는다(카드 아래에 이미 있다).
+- 모든 상품에 사진(대표 1장 + 추가 1장 이상)을 둔다(rule 17). 판매자 사진이 생기기 전에는 기종이 같은 공개 사진을 쓰고 출처는 `docs/image-credits.md`에 둔다.
+- 사진 칸은 카드·상세 모두 4:3이다. 카메라 사진이 가로로 길어 세로 칸이면 본체 양옆이 잘린다.
+- 사진을 불러오지 못하면 얇은 테두리 칸 가운데 작은 카메라 기호(muted)만 둔다. 이름을 사진 자리에 크게 쓰지 않는다(카드 아래에 이미 있다).
 
 ## 배치 (rule 11, 상품 먼저)
 
@@ -55,8 +57,8 @@
 | `CheckMark` | 테두리 1.5px `point` 정사각형 + 가운데 점. 점검 통과 표시. 크기 12·16px |
 | `GradeBadge` | A급: `point` 테두리 + `point-strong` 글자. B급: `ink` 테두리 + `ink` 글자. 높이 22px, 글자 12px 700 |
 | `SoldOutLabel` | `muted` 글자 「판매 완료」. 카드 위에 겹치지 않고 가격 줄을 대신한다 |
-| `ProductCard` | 사진 있으면 4:5 사진, 없으면 `TypeCover`. 아래로 등급 배지, 상품명(2줄 줄바꿈), 가격(`priceViewOf`), 판매 완료면 `SoldOutLabel`. 그림자·둥근 모서리 없음 |
-| `TypeCover` | 사진 없는 자리. 카드 4:5, 상세는 모바일 높이 64px 띠(이름·가격·구매 버튼이 첫 화면 위쪽에 오게)와 데스크톱 4:3. 흰 칸 + `line` 테두리, 가운데 카메라 기호 22px `muted`. 글자 없음 |
+| `ProductCard` | 4:3 사진, 불러오지 못하면 `TypeCover`. 아래로 등급 배지, 상품명(2줄 줄바꿈), 가격(`priceViewOf`), 판매 완료면 `SoldOutLabel`. 그림자·둥근 모서리 없음 |
+| `TypeCover` | 사진을 불러오지 못했거나 없을 때의 자리. 카드·상세 사진 칸 4:3, 상세는 모바일 높이 64px 띠(이름·가격·구매 버튼이 첫 화면 위쪽에 오게)와 데스크톱 4:3. 흰 칸 + `line` 테두리, 가운데 카메라 기호 22px `muted`. 글자 없음 |
 | `InspectionTable` | 점검 기록표. 상세설명 HTML의 표를 이 모양으로 그린다(`.description table` 스타일): 위아래 `ink` 1px, 행 사이 `line`, 1열 항목 굵게 |
 | `Price` | `priceViewOf` 결과. 낼 가격 `ink` 700, 취소선 가격 `muted`(있을 때만) |
 | `DeliveryNotice` | `deliveryNoticeOf` 결과 한 줄 |
@@ -91,7 +93,7 @@
 | P4 | `/search` | `TextField`, `FilterChips`(최근 검색어), `ProductCard`, `EmptyState` |
 | P5 | `/collections` | `PageHeader`, `GradeBadge`, `Button`(text), `EmptyState` |
 | P6 | `/collections/$slug` | `PageHeader`, `ProductCard`, `EmptyState` |
-| P7 | `/products/$productId` | `TypeCover`(사진 없을 때), `GradeBadge`, `Price`, `DeliveryNotice`, `CheckMark`, `Tabs`, `InspectionTable`, `InfoSectionBlock`, `NoticeTable`, `ReviewList`, `InquiryList`, `Accordion`, `ProductCard`(추천), `StickyBuyBar`, `Button`, `SoldOutLabel` |
+| P7 | `/products/$productId` | `Gallery`(4:3 사진 + 썸네일), `TypeCover`(사진을 불러오지 못할 때), `GradeBadge`, `Price`, `DeliveryNotice`, `CheckMark`, `Tabs`, `InspectionTable`, `InfoSectionBlock`, `NoticeTable`, `ReviewList`, `InquiryList`, `Accordion`, `ProductCard`(추천), `StickyBuyBar`, `Button`, `SoldOutLabel` |
 | P8 | `/cart` | `PageHeader`, `ProductCard`(줄 형태), `AmountSummary`, `StickyBuyBar`, `EmptyState` |
 | P9 | `/checkout` | `PageHeader`, `TextField`, `Checkbox`, `AddressForm`, `AmountSummary`, `StickyBuyBar`, `ErrorState` |
 | P10 | `/checkout/return` | `PageHeader`, `Button`, `ErrorState` |

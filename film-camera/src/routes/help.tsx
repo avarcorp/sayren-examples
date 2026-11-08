@@ -3,6 +3,7 @@ import { Faq } from "../components/faq";
 import { ButtonLink, InfoRows, PageHeader, SectionTitle } from "../components/ui";
 import { useStore } from "../hooks/use-catalog";
 import { m } from "../i18n";
+import { PHOTO_CREDITS } from "../lib/photo-credits";
 
 export const Route = createFileRoute("/help")({
   component: Help,
@@ -52,6 +53,24 @@ function Help() {
       <section className="flex flex-col gap-3">
         <SectionTitle>{m.faq_title()}</SectionTitle>
         <Faq />
+      </section>
+      <section className="flex flex-col gap-3">
+        <SectionTitle>{m.help_credits_title()}</SectionTitle>
+        <p className="text-meta text-sub">{m.help_credits_note()}</p>
+        <ul className="flex flex-col gap-2 text-meta text-sub">
+          {PHOTO_CREDITS.map((credit) => (
+            <li key={credit.sourceUrl} className="break-words">
+              {credit.camera} ·{" "}
+              <a href={credit.sourceUrl} className="underline" rel="noopener" target="_blank">
+                {credit.title}
+              </a>{" "}
+              · {credit.author} ·{" "}
+              <a href={credit.licenseUrl} className="underline" rel="noopener" target="_blank">
+                {credit.license}
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
     </main>
   );

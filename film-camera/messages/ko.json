@@ -396,5 +396,7 @@
   "checkout_paying": "결제창을 여는 중",
   "field_invalid": "형식을 확인해 주세요",
   "guest_retry_after": "{minutes}분 뒤 다시 시도해 주세요.",
-  "faq_title": "자주 묻는 질문"
+  "faq_title": "자주 묻는 질문",
+  "help_credits_title": "사진 출처",
+  "help_credits_note": "사진은 4:3으로 잘라서 썼어요."
 }

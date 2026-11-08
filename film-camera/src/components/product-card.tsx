@@ -1,6 +1,7 @@
 import type { ProductCard as ProductCardData } from "@sayren/storefront-sdk";
 import { Link } from "@tanstack/react-router";
 import { Camera } from "lucide-react";
+import { useState } from "react";
 import { m } from "../i18n";
 import { parseCameraName } from "../lib/camera-name";
 import { productPathParam } from "../lib/product-path";
@@ -8,7 +9,7 @@ import { GradeBadge } from "./marks";
 import { Price } from "./price";
 
 /**
- * 사진이 없는 카메라의 자리 — 얇은 테두리와 작은 카메라 기호만 둔다. 이름은 카드 아래·구매 상자가 보인다
+ * 사진을 불러오지 못했을 때의 자리 — 얇은 테두리와 작은 카메라 기호만 둔다. 이름은 카드 아래·구매 상자가 보인다
  */
 export function TypeCover({
   soldOut = false,
@@ -18,7 +19,7 @@ export function TypeCover({
   size?: "card" | "detail";
 }) {
   // 상세에서 사진이 없으면 모바일은 낮은 띠로 둬 이름·가격·구매 버튼이 첫 화면 위쪽에 오게 한다
-  const frame = size === "detail" ? "h-16 lg:h-auto lg:aspect-[4/3]" : "aspect-[4/5]";
+  const frame = size === "detail" ? "h-16 lg:h-auto lg:aspect-[4/3]" : "aspect-[4/3]";
   return (
     <div
       aria-hidden="true"
@@ -31,18 +32,20 @@ export function TypeCover({
 
 export function ProductCard({ product }: { product: ProductCardData }) {
   const { grade, base } = parseCameraName(product.name);
+  const [broken, setBroken] = useState(false);
   return (
     <Link
       to="/products/$productId"
       params={{ productId: productPathParam(product) }}
       className="group flex min-w-0 flex-col gap-3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-point"
     >
-      {product.thumbnailUrl ? (
-        <div className="aspect-[4/5] overflow-hidden border border-line">
+      {product.thumbnailUrl && !broken ? (
+        <div className="aspect-[4/3] overflow-hidden border border-line">
           <img
             src={product.thumbnailUrl}
             alt={product.name}
             loading="lazy"
+            onError={() => setBroken(true)}
             className={`h-full w-full object-cover ${product.soldOut ? "opacity-50 grayscale" : ""}`}
           />
         </div>
