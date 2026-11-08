@@ -39,6 +39,9 @@ export function SiteFooter({ store }: { store: StoreInfo | null }) {
             <Link to="/guest-order" className="hover:text-ink">
               비회원 주문 조회
             </Link>
+            <Link to="/help" className="hover:text-ink">
+              사진 출처
+            </Link>
           </p>
         </div>
       </div>

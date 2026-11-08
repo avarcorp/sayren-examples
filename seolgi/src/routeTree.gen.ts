@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as GuestOrderRouteImport } from './routes/guest-order'
+import { Route as HelpRouteImport } from './routes/help'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SearchRouteImport } from './routes/search'
@@ -59,6 +60,11 @@ const CartRoute = CartRouteImport.update({
 const GuestOrderRoute = GuestOrderRouteImport.update({
   id: '/guest-order',
   path: '/guest-order',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpRoute = HelpRouteImport.update({
+  id: '/help',
+  path: '/help',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -204,6 +210,7 @@ export interface FileRoutesByFullPath {
   '/account': typeof AccountRouteWithChildren
   '/cart': typeof CartRoute
   '/guest-order': typeof GuestOrderRoute
+  '/help': typeof HelpRoute
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
@@ -236,6 +243,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
   '/guest-order': typeof GuestOrderRoute
+  '/help': typeof HelpRoute
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
@@ -270,6 +278,7 @@ export interface FileRoutesById {
   '/account': typeof AccountRouteWithChildren
   '/cart': typeof CartRoute
   '/guest-order': typeof GuestOrderRoute
+  '/help': typeof HelpRoute
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
@@ -305,6 +314,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/cart'
     | '/guest-order'
+    | '/help'
     | '/login'
     | '/privacy'
     | '/search'
@@ -337,6 +347,7 @@ export interface FileRouteTypes {
     | '/'
     | '/cart'
     | '/guest-order'
+    | '/help'
     | '/login'
     | '/privacy'
     | '/search'
@@ -370,6 +381,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/cart'
     | '/guest-order'
+    | '/help'
     | '/login'
     | '/privacy'
     | '/search'
@@ -404,6 +416,7 @@ export interface RootRouteChildren {
   AccountRoute: typeof AccountRouteWithChildren
   CartRoute: typeof CartRoute
   GuestOrderRoute: typeof GuestOrderRoute
+  HelpRoute: typeof HelpRoute
   LoginRoute: typeof LoginRoute
   PrivacyRoute: typeof PrivacyRoute
   SearchRoute: typeof SearchRoute
@@ -448,6 +461,13 @@ declare module '@tanstack/react-router' {
       path: '/guest-order'
       fullPath: '/guest-order'
       preLoaderRoute: typeof GuestOrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -682,6 +702,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccountRoute: AccountRouteWithChildren,
   CartRoute: CartRoute,
   GuestOrderRoute: GuestOrderRoute,
+  HelpRoute: HelpRoute,
   LoginRoute: LoginRoute,
   PrivacyRoute: PrivacyRoute,
   SearchRoute: SearchRoute,
