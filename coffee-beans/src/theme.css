@@ -1,0 +1,35 @@
+/*
+ * 월수금 로스터리 테마 토큰 — docs/04-design-system.md §1이 원천이다.
+ * 바탕은 모두 흰색이다(면 토큰 chip·point-soft·surface도 흰색). 대표 색은 글자·버튼·링크·테두리에만 쓴다.
+ * 서체는 Pretendard 하나이고 --font-display는 --font-sans와 같다.
+ */
+@theme {
+  --color-page: #ffffff;
+  --color-ink: #1f1a17;
+  --color-sub: #4a423c;
+  --color-muted: #6e645d;
+  --color-line: #e7e1db;
+  --color-line-strong: #cfc6be;
+  --color-chip: #ffffff;
+  --color-point: #5a3a22;
+  --color-point-hover: #452c19;
+  --color-point-soft: #ffffff;
+  --color-sale: #b4442b;
+  --color-info: #2f6b4f;
+  --color-surface: #ffffff;
+  --font-sans:
+    "Pretendard Variable", Pretendard, "Noto Sans KR", -apple-system, "Apple SD Gothic Neo",
+    sans-serif;
+  --font-display: var(--font-sans);
+  --radius-card: 8px;
+  --radius-control: 8px;
+  --container-page: 72rem;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.5;
+  --text-meta: 0.8125rem;
+  --text-meta--line-height: 1.5;
+  --text-body: 0.875rem;
+  --text-body--line-height: 1.6;
+  --text-body-lg: 0.9375rem;
+  --text-body-lg--line-height: 1.6;
+}
